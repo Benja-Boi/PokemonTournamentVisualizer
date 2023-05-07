@@ -8,6 +8,9 @@ namespace DataTypes
     public class Tournament
     {
         private Match _finalMatch;
+
+        public Match FinalMatch => _finalMatch;
+
         public Dictionary<string, Pokemon> _playerPokemons;
         
         public Tournament(List<(string playerName, string pokemonName)> playerPokemonPairs)
@@ -62,6 +65,12 @@ namespace DataTypes
             }
 
             return match;
+        }
+
+        public Match FindMatchById(int matchId)
+        {
+            // TODO
+            return null;
         }
     }
 }
