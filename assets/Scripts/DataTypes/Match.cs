@@ -1,9 +1,14 @@
-﻿namespace DataTypes
+﻿using UnityEngine;
+
+namespace DataTypes
 {
     public class Match
     {
+        // Previous matches are those whose winners take part in this match
         public Match PreviousMatch1;
         public Match PreviousMatch2;
+        
+        // Next match is where the winner of this match will battle next
         public Match NextMatch;
         
         private int _id;
@@ -13,12 +18,6 @@
         private Pokemon _pokemon2;
         private Pokemon _winner;
         private int _round;
-
-        public Match PreviousMatch3 => PreviousMatch1;
-
-        public Match PreviousMatch4 => PreviousMatch2;
-
-        public Match NextMatch1 => NextMatch;
 
         public int ID => _id;
 
@@ -45,6 +44,7 @@
         public void SimulateMatch()
         {
             // TODO
+            Debug.Log("Simulating match");
         }
 
         public int NextMatchId()

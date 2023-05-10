@@ -17,11 +17,12 @@ public class OverviewScreenController : MonoBehaviour
     private void Start()
     {
         roundUIElements = new Dictionary<int, GameObject>();
-        GenerateTournamentUI();
     }
 
-    private void GenerateTournamentUI()
+    public void GenerateTournamentUI(Tournament newTournament)
     {
+        Tournament = newTournament;
+        
         // Clear existing UI elements
         foreach (Transform child in roundsContainer)
         {
@@ -30,7 +31,7 @@ public class OverviewScreenController : MonoBehaviour
         roundUIElements.Clear();
 
         // Generate UI elements for each match in the tournament
-        TraverseAndGenerateUI(Tournament.FinalMatch);
+        TraverseAndGenerateUI(this.Tournament.FinalMatch);
     }
 
     private void TraverseAndGenerateUI(Match match)
@@ -73,12 +74,11 @@ public class OverviewScreenController : MonoBehaviour
 
     private GameObject GetOrCreateRoundUIElement(int roundNumber)
     {
-        if (!roundUIElements.ContainsKey(roundNumber))
-        {
-            GameObject roundUIElement = Instantiate(roundUIElementPrefab, roundsContainer);
-            roundUIElements[roundNumber] = roundUIElement;
-            roundUIElement.name = "Round_" + roundNumber;
-        }
+        if (roundUIElements.ContainsKey(roundNumber)) return roundUIElements[roundNumber];
+        
+        GameObject roundUIElement = Instantiate(roundUIElementPrefab, roundsContainer);
+        roundUIElements[roundNumber] = roundUIElement;
+        roundUIElement.name = "Round_" + roundNumber;
 
         return roundUIElements[roundNumber];
     }
@@ -124,17 +124,18 @@ public class OverviewScreenController : MonoBehaviour
 internal class MatchUIElement
 {
     public int matchId;
+    public MatchState matchState;
 
-    public void SetState(object available)
+    public void SetState(MatchState available)
     {
-        throw new System.NotImplementedException();
+        matchState = available;
     }
 
     public class MatchState
     {
-        public static object Available { get; set; }
-        public static object Completed { get; set; }
-        public static object Unavailable { get; set; }
+        public static MatchState Available { get; set; }
+        public static MatchState Completed { get; set; }
+        public static MatchState Unavailable { get; set; }
     }
 
     public void SetWinner(Pokemon matchWinner)

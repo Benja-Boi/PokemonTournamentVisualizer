@@ -1,22 +1,18 @@
-﻿namespace DataTypes
+﻿using ScriptableObjects.DataTypes;
+using UnityEngine;
+
+namespace DataTypes
 {
     public class Pokemon
     {
         private string _name;
-        private string _idNumber;
         private string _playerName;
-        private string _spritePath;
+        private PokemonData _data;
 
         public string Name
         {
             get => _name;
             private set => _name = value;
-        }
-
-        public string IDNumber
-        {
-            get => _idNumber;
-            private set => _idNumber = value;
         }
 
         public string PlayerName

@@ -8,23 +8,17 @@ namespace DataTypes
     public class Tournament
     {
         private Match _finalMatch;
-
         public Match FinalMatch => _finalMatch;
 
         public Dictionary<string, Pokemon> _playerPokemons;
         
         public Tournament(List<(string playerName, string pokemonName)> playerPokemonPairs)
         {
-            // if (playerPokemonPairs.Count != 2.Pow(numRounds))
-            // {
-            //     throw new Exception("Number of pokemons does not fit number of rounds");
-            // }
-            
             _playerPokemons = new Dictionary<string, Pokemon>();
             InitTournament(playerPokemonPairs);
         }
 
-        private void InitTournament(List<(string playerName, string pokemonName)> playerPokemonPairs)
+        public void InitTournament(List<(string playerName, string pokemonName)> playerPokemonPairs)
         {
             // Shuffle the player-pokemon pairs to randomize the seeding
             playerPokemonPairs.Shuffle();
@@ -58,14 +52,51 @@ namespace DataTypes
  
             if (pokemonQueue.Count > 0)
             {
-                match.PreviousMatch1 = CreateRoundMatches(pokemonQueue, roundNumber + 1, ref matchIdCounter);
-                match.PreviousMatch2 = CreateRoundMatches(pokemonQueue, roundNumber + 1, ref matchIdCounter);
                 match.PreviousMatch1.NextMatch = match;
                 match.PreviousMatch2.NextMatch = match;
+                match.PreviousMatch1 = CreateRoundMatches(pokemonQueue, roundNumber + 1, ref matchIdCounter);
+                match.PreviousMatch2 = CreateRoundMatches(pokemonQueue, roundNumber + 1, ref matchIdCounter);
             }
 
-            return match;
+            //return match;
+
+    
         }
+        
+        public static Match BuildBinaryTree(List<Pokemon> pokemons)
+        {
+            if (pokemons == null || pokemons.Count == 0)
+                return null;
+
+            int index = 0;
+            Match root = new Match(pokemons[index++]);
+            Queue<Match> queue = new Queue<Match>();
+            queue.Enqueue(root);
+
+            while (index < pokemons.Count)
+            {
+                Match current = queue.Dequeue();
+
+                // Assign left child
+                if (index < pokemons.Count)
+                {
+                    current.PreviousMatch1 = new Match(pokemons[index++]);
+                    current.PreviousMatch1.NextMatch = current;
+                    queue.Enqueue(current.PreviousMatch1);
+                }
+
+                // Assign right child
+                if (index < pokemons.Count)
+                {
+                    current.PreviousMatch2 = new Match(pokemons[index++]);
+                    current.PreviousMatch2.NextMatch = current;
+                    queue.Enqueue(current.PreviousMatch2);
+                }
+            }
+
+            return root;
+        }
+        
 
         public Match FindMatchById(int matchId)
         {
