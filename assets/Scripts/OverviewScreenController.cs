@@ -6,32 +6,35 @@ using UnityEngine.UI;
 
 public class OverviewScreenController : MonoBehaviour
 {
-    public Tournament Tournament;
+    public Transform tournamentContainer;
     public GameObject roundUIElementPrefab;
     public GameObject matchUIElementPrefab;
-    public GameObject pokemonUIElementPrefab;
-    public Transform roundsContainer;
+    public Transform initialRoundTransform;
+
+    public Vector3 roundHorizontalOffset = new Vector3(5f, 0, 0);
+    public Vector3 matchVerticalOffset = new Vector3(0, 5f, 0);
     
-    private Dictionary<int, GameObject> roundUIElements;
+    private Tournament _tournament;
+    private Dictionary<int, GameObject> _roundUIElements;
 
     private void Start()
     {
-        roundUIElements = new Dictionary<int, GameObject>();
+        _roundUIElements = new Dictionary<int, GameObject>();
     }
 
     public void GenerateTournamentUI(Tournament newTournament)
     {
-        Tournament = newTournament;
+        _tournament = newTournament;
         
         // Clear existing UI elements
-        foreach (Transform child in roundsContainer)
+        foreach (Transform child in initialRoundTransform)
         {
             Destroy(child.gameObject);
         }
-        roundUIElements.Clear();
+        _roundUIElements.Clear();
 
         // Generate UI elements for each match in the tournament
-        TraverseAndGenerateUI(this.Tournament.FinalMatch);
+        TraverseAndGenerateUI(_tournament.FinalMatch);
     }
 
     private void TraverseAndGenerateUI(Match match)
@@ -44,25 +47,11 @@ public class OverviewScreenController : MonoBehaviour
         // Instantiate a new MatchUIElement and set up its properties
         GameObject matchUIObject = Instantiate(matchUIElementPrefab, roundUIElement.transform);
         MatchUIElement matchUIElement = matchUIObject.GetComponent<MatchUIElement>();
-        matchUIElement.matchId = match.ID;
+        matchUIElement.SetMatch(match);
 
         // Set up the UI Button click listener
         Button matchButton = matchUIObject.GetComponent<Button>();
-        matchButton.onClick.AddListener(() => OnMatchButtonClick(matchUIElement.matchId));
-
-        // Instantiate and set up PokemonUIElement objects for the participating Pokemon
-        if (match.Pokemon1 != null)
-        {
-            GameObject pokemonUIObject1 = Instantiate(pokemonUIElementPrefab, matchUIObject.transform);
-            PokemonUIElement pokemonUIElement1 = pokemonUIObject1.GetComponent<PokemonUIElement>();
-            pokemonUIElement1.SetPokemon(match.Pokemon1);
-        }
-        if (match.Pokemon2 != null)
-        {
-            GameObject pokemonUIObject2 = Instantiate(pokemonUIElementPrefab, matchUIObject.transform);
-            PokemonUIElement pokemonUIElement2 = pokemonUIObject2.GetComponent<PokemonUIElement>();
-            pokemonUIElement2.SetPokemon(match.Pokemon2);
-        }
+        matchButton.onClick.AddListener(() => OnMatchButtonClick(matchUIElement.Match.ID));
 
         // Update the match UI state based on the current match state
         UpdateMatchUI(matchUIElement, match);
@@ -74,18 +63,19 @@ public class OverviewScreenController : MonoBehaviour
 
     private GameObject GetOrCreateRoundUIElement(int roundNumber)
     {
-        if (roundUIElements.ContainsKey(roundNumber)) return roundUIElements[roundNumber];
-        
-        GameObject roundUIElement = Instantiate(roundUIElementPrefab, roundsContainer);
-        roundUIElements[roundNumber] = roundUIElement;
+        if (_roundUIElements.ContainsKey(roundNumber)) return _roundUIElements[roundNumber];
+
+        Vector3 newRoundTransform = initialRoundTransform.position + (roundNumber - 1) * roundHorizontalOffset;
+        GameObject roundUIElement = Instantiate(roundUIElementPrefab, newRoundTransform, tournamentContainer.rotation, tournamentContainer);
+        _roundUIElements[roundNumber] = roundUIElement;
         roundUIElement.name = "Round_" + roundNumber;
 
-        return roundUIElements[roundNumber];
+        return _roundUIElements[roundNumber];
     }
 
     public void OnMatchButtonClick(int matchId)
     {
-        Match clickedMatch = Tournament.FindMatchById(matchId);
+        Match clickedMatch = _tournament.FindMatchById(matchId);
 
         if (clickedMatch != null && clickedMatch.IsAvailable)
         {
@@ -107,47 +97,16 @@ public class OverviewScreenController : MonoBehaviour
     {
         if (match.IsAvailable)
         {
-            matchUIElement.SetState(MatchUIElement.MatchState.Available);
+            matchUIElement.SetState(MatchState.Available);
         }
         else if (match.IsComplete)
         {
-            matchUIElement.SetState(MatchUIElement.MatchState.Completed);
+            matchUIElement.SetState(MatchState.Completed);
             matchUIElement.SetWinner(match.Winner);
         }
         else
         {
-            matchUIElement.SetState(MatchUIElement.MatchState.Unavailable);
+            matchUIElement.SetState(MatchState.Unavailable);
         }
-    }
-}
-
-internal class MatchUIElement
-{
-    public int matchId;
-    public MatchState matchState;
-
-    public void SetState(MatchState available)
-    {
-        matchState = available;
-    }
-
-    public class MatchState
-    {
-        public static MatchState Available { get; set; }
-        public static MatchState Completed { get; set; }
-        public static MatchState Unavailable { get; set; }
-    }
-
-    public void SetWinner(Pokemon matchWinner)
-    {
-        throw new System.NotImplementedException();
-    }
-}
-
-internal class PokemonUIElement
-{
-    public void SetPokemon(Pokemon matchPokemon1)
-    {
-        throw new System.NotImplementedException();
     }
 }

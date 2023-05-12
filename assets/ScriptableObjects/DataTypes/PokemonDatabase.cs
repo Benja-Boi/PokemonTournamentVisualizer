@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ScriptableObjects.DataTypes
@@ -32,14 +33,14 @@ namespace ScriptableObjects.DataTypes
             _allPokemon.Clear();
         }
 
-        public void GetPokemon(string pokemonName)
+        public PokemonData GetPokemon(string pokemonName)
         {
-            
+            return _allPokemon.FirstOrDefault(pokemonData => pokemonData.name == pokemonName);
         }
         
-        public void GetPokemon(int pokemonNumber)
+        public PokemonData GetPokemon(int pokemonNumber)
         {
-            
+            return _allPokemon.FirstOrDefault(pokemonData => pokemonData.id == pokemonNumber);
         }
     }
 }

@@ -1,35 +1,25 @@
-﻿using DataTypes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using ScriptableObjects.DataTypes;
-using UnityEngine;
-
-namespace DefaultNamespace
+public static class TournamentLoader
 {
-    public class TournamentLoader
+    private const string DefaultPath = "Assets/Resources/Tournament_Data.csv";
+
+    public static List<(string playerName, string pokemonName)> LoadTournament(string path = DefaultPath)
     {
-        private const string DefaultPath = "Assets/Resources/Tournament_Data.csv";
+        var tournamentData = new List<(string playerName, string pokemonName)>();
 
-        public static List<(string playerName, string pokemonName)> LoadTournament(string path = DefaultPath)
+        // Read the CSV file line by line
+        using StreamReader reader = new StreamReader(path);
+        while (reader.ReadLine() is { } line)
         {
-            var tournamentData = new List<(string playerName, string pokemonName)>();
-
-            // Read the CSV file line by line
-            using (StreamReader reader = new StreamReader(path))
-            {
-                while (reader.ReadLine() is { } line)
-                {
-                    // Split the line into Player name and Pokemon name
-                    string[] values = line.Split(',');
-                    string playerName = values[0];
-                    string pokemonName = values[1];
+            // Split the line into Player name and Pokemon name
+            string[] values = line.Split(',');
+            string playerName = values[0];
+            string pokemonName = values[1];
                     
-                    tournamentData.Add((playerName, pokemonName));
-                }
-            }
-
-            return tournamentData;
+            tournamentData.Add((playerName, pokemonName));
         }
+
+        return tournamentData;
     }
-    
 }

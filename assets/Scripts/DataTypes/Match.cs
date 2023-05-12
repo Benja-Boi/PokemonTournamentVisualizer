@@ -40,6 +40,14 @@ namespace DataTypes
             _round = roundNumber;
             _id = matchID;
         }
+        
+        public Match(int roundNumber, int matchID)
+        {
+            _pokemon1 = null;
+            _pokemon2 = null;
+            _round = roundNumber;
+            _id = matchID;
+        }
 
         public void SimulateMatch()
         {

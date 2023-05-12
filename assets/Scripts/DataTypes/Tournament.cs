@@ -7,18 +7,17 @@ namespace DataTypes
 {
     public class Tournament
     {
-        private Match _finalMatch;
-        public Match FinalMatch => _finalMatch;
+        public Match FinalMatch { get; private set; }
 
-        public Dictionary<string, Pokemon> _playerPokemons;
-        
-        public Tournament(List<(string playerName, string pokemonName)> playerPokemonPairs)
+        private readonly Dictionary<int, Match> _matchByIdMap;
+
+        public Tournament(IList<(string playerName, string pokemonName)> playerPokemonPairs)
         {
-            _playerPokemons = new Dictionary<string, Pokemon>();
+            _matchByIdMap = new Dictionary<int, Match>();
             InitTournament(playerPokemonPairs);
         }
 
-        public void InitTournament(List<(string playerName, string pokemonName)> playerPokemonPairs)
+        private void InitTournament(IList<(string playerName, string pokemonName)> playerPokemonPairs)
         {
             // Shuffle the player-pokemon pairs to randomize the seeding
             playerPokemonPairs.Shuffle();
@@ -29,79 +28,58 @@ namespace DataTypes
             // Enqueue the Pokemon in the shuffled order
             foreach (var newPokemon in playerPokemonPairs.Select(choice => new Pokemon(choice.Item1, choice.Item2)))
             {
-                _playerPokemons[newPokemon.PlayerName] = newPokemon;
                 pokemonQueue.Enqueue(newPokemon);
             }
             
-            // Populate the binary tree with round 1 matches
-            int matchIdCounter = 1 ;
-            _finalMatch = CreateRoundMatches(pokemonQueue, 1, ref matchIdCounter);
+            // Generate a tournament tree and return its root.
+            FinalMatch = CreateRoundMatches(pokemonQueue);
         }
-        
-        private Match CreateRoundMatches(Queue<Pokemon> pokemonQueue, int roundNumber, ref int matchIdCounter)
+
+        private Match CreateRoundMatches(Queue<Pokemon> pokemonQueue)
         {
-            if (pokemonQueue.Count == 0)
+            Queue<Match> matchesQueue = new Queue<Match>();
+            int matchId = 1;
+            int round = 1;
+            
+            // Pair participants into first round matches
+            while (pokemonQueue.Count != 0)
             {
-                return null;
+                Pokemon p1 = pokemonQueue.Dequeue();
+                Pokemon p2 = pokemonQueue.Dequeue();
+                Match match = new Match(p1, p2, round, matchId);
+                _matchByIdMap.Add(matchId, match);
+                matchId++;
+                matchesQueue.Enqueue(match);
             }
 
-            Pokemon pokemon1 = pokemonQueue.Dequeue();
-            Pokemon pokemon2 = pokemonQueue.Count > 0 ? pokemonQueue.Dequeue() : null;
-
-            Match match = new Match(pokemon1, pokemon2, roundNumber, matchIdCounter++);
- 
-            if (pokemonQueue.Count > 0)
+            round++;
+            
+            // Pair matches of equal levels up until the final match is created
+            while (matchesQueue.Count > 1)
             {
-                match.PreviousMatch1.NextMatch = match;
-                match.PreviousMatch2.NextMatch = match;
-                match.PreviousMatch1 = CreateRoundMatches(pokemonQueue, roundNumber + 1, ref matchIdCounter);
-                match.PreviousMatch2 = CreateRoundMatches(pokemonQueue, roundNumber + 1, ref matchIdCounter);
+                Match m1 = matchesQueue.Dequeue();
+                Match m2 = matchesQueue.Dequeue();
+                if (round == m1.Round || round == m2.Round)
+                {
+                    round++;
+                }
+                
+                Match nextMatch = new Match(round, matchId);
+                _matchByIdMap.Add(matchId, nextMatch);
+                matchId++;
+                m1.NextMatch = nextMatch;
+                m2.NextMatch = nextMatch;
+                nextMatch.PreviousMatch1 = m1;
+                nextMatch.PreviousMatch2 = m2;
+                matchesQueue.Enqueue(nextMatch);
             }
 
-            //return match;
-
-    
+            return matchesQueue.Dequeue();
         }
         
-        public static Match BuildBinaryTree(List<Pokemon> pokemons)
-        {
-            if (pokemons == null || pokemons.Count == 0)
-                return null;
-
-            int index = 0;
-            Match root = new Match(pokemons[index++]);
-            Queue<Match> queue = new Queue<Match>();
-            queue.Enqueue(root);
-
-            while (index < pokemons.Count)
-            {
-                Match current = queue.Dequeue();
-
-                // Assign left child
-                if (index < pokemons.Count)
-                {
-                    current.PreviousMatch1 = new Match(pokemons[index++]);
-                    current.PreviousMatch1.NextMatch = current;
-                    queue.Enqueue(current.PreviousMatch1);
-                }
-
-                // Assign right child
-                if (index < pokemons.Count)
-                {
-                    current.PreviousMatch2 = new Match(pokemons[index++]);
-                    current.PreviousMatch2.NextMatch = current;
-                    queue.Enqueue(current.PreviousMatch2);
-                }
-            }
-
-            return root;
-        }
-        
-
         public Match FindMatchById(int matchId)
         {
-            // TODO
-            return null;
+            return _matchByIdMap[matchId];
         }
     }
 }

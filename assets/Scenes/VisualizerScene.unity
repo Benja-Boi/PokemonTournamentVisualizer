@@ -192,8 +192,8 @@ Canvas:
   m_GameObject: {fileID: 703099609}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1222127513}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -215,7 +215,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1555990385}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -236,10 +237,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cfebfc02dc6a54bacdf84d4faf242e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tournamentContainer: {fileID: 703099613}
   roundUIElementPrefab: {fileID: 4647948737280888594, guid: cdec7d3e96c3239499331cc55cea4c22, type: 3}
   matchUIElementPrefab: {fileID: 3225137884337993583, guid: 8c957ecdf4e832546bc869663b6b606e, type: 3}
-  pokemonUIElementPrefab: {fileID: 4647948737280888594, guid: cdec7d3e96c3239499331cc55cea4c22, type: 3}
-  roundsContainer: {fileID: 1036364408}
+  initialRoundTransform: {fileID: 1555990385}
+  roundHorizontalOffset: {x: 3.25, y: 0, z: 0}
+  matchVerticalOffset: {x: 0, y: 3, z: 0}
 --- !u!1 &1036364405
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +395,87 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1485333360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1485333362}
+  - component: {fileID: 1485333361}
+  m_Layer: 0
+  m_Name: Data Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1485333361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485333360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ca5989d3dc4b6da7a7d5c9bb63c591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  db: {fileID: 11400000, guid: 46fa08b721441a547b00159498ed7cce, type: 2}
+--- !u!4 &1485333362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485333360}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -131.99295, y: 465.19556, z: 3.6474676}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1555990384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1555990385}
+  m_Layer: 5
+  m_Name: RoundOnePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1555990385
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555990384}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 703099613}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -375, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1911213675
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2692403fc77807e488a8c5c1e94d91a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overviewScreenController: {fileID: 703099614}
 --- !u!4 &1911213677
 Transform:
   m_ObjectHideFlags: 0

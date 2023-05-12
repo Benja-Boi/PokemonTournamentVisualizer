@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0febfc2ef63fd604ea08b87192779668, type: 3}
   m_Name: PokemonDatabase
   m_EditorClassIdentifier: 
-  allPokemon:
+  _allPokemon:
   - {fileID: 11400000, guid: 9a8802d82647356458337f270cd1170c, type: 2}
   - {fileID: 11400000, guid: 7f41b7c4ff30a7a439196d6ff3c1bfff, type: 2}
   - {fileID: 11400000, guid: 91d061c61204ab3409be3d3190fee126, type: 2}

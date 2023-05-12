@@ -1,30 +1,24 @@
-﻿using ScriptableObjects.DataTypes;
+﻿using DefaultNamespace;
+using ScriptableObjects.DataTypes;
 using UnityEngine;
 
 namespace DataTypes
 {
     public class Pokemon
     {
-        private string _name;
-        private string _playerName;
         private PokemonData _data;
 
-        public string Name
-        {
-            get => _name;
-            private set => _name = value;
-        }
+        public string Name { get; private set; }
 
-        public string PlayerName
-        {
-            get => _playerName;
-            private set => _playerName = value;
-        }
+        public string PlayerName { get; private set; }
+        
+        public Sprite Sprite => _data.sprite;
 
-        public Pokemon(string pokemonName, string playerName)
+        public Pokemon(string playerName, string pokemonName)
         {
-            _name = pokemonName;
-            _playerName = playerName;
+            Name = pokemonName;
+            PlayerName = playerName;
+            _data = PokemonDataManager.Instance.GetPokemon(pokemonName);
         }
     }
 }

@@ -13,7 +13,7 @@ public class PokemonDataGenerator
     private const string DefaultSpritePath = "Assets/0.png";
     
     private const string DBOutputName = "PokemonDatabase";
-    private const string DBOutputFolderPath = "Assets/ScriptableObjects/PokemonDB";
+    private const string DBOutputFolderPath = "Assets/Resources/ScriptableObjects/PokemonDB";
 
     [MenuItem("Tools/Generate Pokemon Data Assets")]
     public static void GeneratePokemonData()
