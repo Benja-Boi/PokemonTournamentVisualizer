@@ -8,7 +8,9 @@ public class MatchUIElement : MonoBehaviour
     public PokemonUIElement pokemon1;
     public PokemonUIElement pokemon2;
     public PokemonUIElement winner;
-
+    public MatchUIElement previousMatch1;
+    public MatchUIElement previousMatch2;
+    public MatchUIElement nextMatch;
     public void SetMatch(Match match)
     {
         Match = match;

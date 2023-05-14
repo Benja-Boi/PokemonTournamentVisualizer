@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DefaultNamespace;
 
 namespace DataTypes
 {
@@ -46,7 +45,7 @@ namespace DataTypes
             {
                 Pokemon p1 = pokemonQueue.Dequeue();
                 Pokemon p2 = pokemonQueue.Dequeue();
-                Match match = new Match(p1, p2, round, matchId);
+                Match match = new Match(p1, p2, round, matchId, true);
                 _matchByIdMap.Add(matchId, match);
                 matchId++;
                 matchesQueue.Enqueue(match);
@@ -64,7 +63,7 @@ namespace DataTypes
                     round++;
                 }
                 
-                Match nextMatch = new Match(round, matchId);
+                Match nextMatch = new Match(round, matchId, false);
                 _matchByIdMap.Add(matchId, nextMatch);
                 matchId++;
                 m1.NextMatch = nextMatch;

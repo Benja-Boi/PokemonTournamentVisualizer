@@ -1,5 +1,4 @@
-﻿using DefaultNamespace;
-using ScriptableObjects.DataTypes;
+﻿using ScriptableObjects.DataTypes;
 using UnityEngine;
 
 namespace DataTypes

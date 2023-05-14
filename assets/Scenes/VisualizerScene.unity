@@ -241,8 +241,8 @@ MonoBehaviour:
   roundUIElementPrefab: {fileID: 4647948737280888594, guid: cdec7d3e96c3239499331cc55cea4c22, type: 3}
   matchUIElementPrefab: {fileID: 3225137884337993583, guid: 8c957ecdf4e832546bc869663b6b606e, type: 3}
   initialRoundTransform: {fileID: 1555990385}
-  roundHorizontalOffset: {x: 3.25, y: 0, z: 0}
-  matchVerticalOffset: {x: 0, y: 3, z: 0}
+  roundHorizontalOffset: {x: 2, y: 0, z: 0}
+  matchVerticalOffset: {x: 0, y: 0.8, z: 0}
 --- !u!1 &1036364405
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ca5989d3dc4b6da7a7d5c9bb63c591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  db: {fileID: 11400000, guid: 46fa08b721441a547b00159498ed7cce, type: 2}
+  db: {fileID: 11400000, guid: 366e4332a4dd87643a97ca62ca349956, type: 2}
 --- !u!4 &1485333362
 Transform:
   m_ObjectHideFlags: 0
@@ -449,6 +449,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1555990385}
+  - component: {fileID: 1555990387}
+  - component: {fileID: 1555990386}
   m_Layer: 5
   m_Name: RoundOnePosition
   m_TagString: Untagged
@@ -473,9 +475,47 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -375, y: 0}
+  m_AnchoredPosition: {x: -400, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1555990386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555990384}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 26a9bf9279320e34781a60d3d4cbd5b9, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1555990387
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555990384}
+  m_CullTransparentMesh: 1
 --- !u!1 &1911213675
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +545,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2692403fc77807e488a8c5c1e94d91a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pokemonDataManager: {fileID: 0}
   overviewScreenController: {fileID: 703099614}
+  populateRandomly: 1
+  numberOfRounds: 5
 --- !u!4 &1911213677
 Transform:
   m_ObjectHideFlags: 0

@@ -4,19 +4,31 @@ using ScriptableObjects.DataTypes;
 using UnityEditor;
 using UnityEngine;
 
-public class PokemonDataGenerator
+public static class PokemonDataGenerator
 {
     // Set the paths for the CSV file and the sprites folder
-    private const string CsvFilePath = "Assets/Resources/Pokedex_Map_mock.csv";
+    private const string CsvFilePathDemo = "Assets/Resources/Pokedex_Map_mock.csv";
+    private const string CsvFilePathFull = "Assets/Resources/Pokedex_Map.csv";
     private const string SpritesFolderPath = "Assets/Sprites";
     private const string OutputFolderPath = "Assets/ScriptableObjects/PokemonData";
     private const string DefaultSpritePath = "Assets/0.png";
     
     private const string DBOutputName = "PokemonDatabase";
-    private const string DBOutputFolderPath = "Assets/Resources/ScriptableObjects/PokemonDB";
+    private const string DBOutputFolderPath = "Assets/ScriptableObjects/PokemonDB";
 
-    [MenuItem("Tools/Generate Pokemon Data Assets")]
-    public static void GeneratePokemonData()
+    [MenuItem("Tools/Generate Pokemon Demo Data Assets")]
+    public static void GeneratePokemonDemoData()
+    {
+        GeneratePokemonData(CsvFilePathDemo);
+    }
+    
+    [MenuItem("Tools/Generate Pokemon Full Data Assets")]
+    public static void GeneratePokemonFullData()
+    {
+        GeneratePokemonData(CsvFilePathFull);
+    }
+
+    private static void GeneratePokemonData(string csvPath)
     {
         // The database object to hold all the instances for easy access
         //pokemonDatabase.Clear();
@@ -25,7 +37,7 @@ public class PokemonDataGenerator
         Sprite defaultSprite = AssetDatabase.LoadAssetAtPath<Sprite>(DefaultSpritePath);
 
         // Read the CSV file line by line
-        using (StreamReader reader = new StreamReader(CsvFilePath))
+        using (StreamReader reader = new StreamReader(csvPath))
         {
             while (reader.ReadLine() is { } line)
             {
@@ -51,10 +63,23 @@ public class PokemonDataGenerator
         // Refresh the AssetDatabase to show the new instances in the Unity Editor
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+        
+        Debug.Log("Data Load complete successfully!");
     }
     
-    [MenuItem("Tools/Generate Pokemon Database")]
-    public static void GeneratePokemonDatabase()
+    [MenuItem("Tools/Generate Pokemon Demo Database")]
+    public static void GeneratePokemonDemoDatabase()
+    {
+        GeneratePokemonDatabase(CsvFilePathDemo);
+    }
+    
+    [MenuItem("Tools/Generate Pokemon Full Database")]
+    public static void GeneratePokemonFullDatabase()
+    {
+        GeneratePokemonDatabase(CsvFilePathFull);
+    }
+
+    private static void GeneratePokemonDatabase(string csvPath)
     {
         // The database object to hold all the instances for easy access
         PokemonDatabase pokemonDB = ScriptableObject.CreateInstance<PokemonDatabase>();
@@ -63,7 +88,7 @@ public class PokemonDataGenerator
         Sprite defaultSprite = AssetDatabase.LoadAssetAtPath<Sprite>(DefaultSpritePath);
 
         // Read the CSV file line by line
-        using (StreamReader reader = new StreamReader(CsvFilePath))
+        using (StreamReader reader = new StreamReader(csvPath))
         {
             while (reader.ReadLine() is { } line)
             {
@@ -77,7 +102,7 @@ public class PokemonDataGenerator
 
                 // Create a new PokemonData ScriptableObject
                 PokemonData pokemonData = ScriptableObject.CreateInstance<PokemonData>();
-                pokemonData.pokemonName = pokemonName;
+                pokemonData.pokemonName = pokemonName ?? "";
                 pokemonData.sprite = sprite;
                 pokemonData.id = pokedexNumber;
                 
@@ -90,7 +115,7 @@ public class PokemonDataGenerator
         }
 
         // Save the PokemonData instance as an asset in the project
-        AssetDatabase.CreateAsset(pokemonDB, $"{DBOutputFolderPath}/{DBOutputName}.asset");
+        AssetDatabase.CreateAsset(pokemonDB, $"{DBOutputFolderPath}/{DBOutputName}_{pokemonDB.AllPokemon.Count}.asset");
         
         // Refresh the AssetDatabase to show the new instances in the Unity Editor
         AssetDatabase.SaveAssets();

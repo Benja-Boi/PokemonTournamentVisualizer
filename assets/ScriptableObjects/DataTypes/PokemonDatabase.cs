@@ -8,39 +8,45 @@ namespace ScriptableObjects.DataTypes
     public class PokemonDatabase : ScriptableObject
     {
         [SerializeField]
-        public List<PokemonData> _allPokemon;
+        private List<PokemonData> allPokemon;
 
-        
+        public List<PokemonData> AllPokemon => allPokemon;
+
+
         public PokemonDatabase()
         {
-            _allPokemon = new List<PokemonData>();
-        }
-        
-        public List<PokemonData> AllPokemon
-        {
-            get => _allPokemon;
-            set => _allPokemon = value;
+            allPokemon = new List<PokemonData>();
         }
 
         public void Add(PokemonData pokemonData)
         {
-            _allPokemon ??= new List<PokemonData>();
-            _allPokemon.Add(pokemonData);
+            allPokemon ??= new List<PokemonData>();
+            allPokemon.Add(pokemonData);
         }
 
         public void Clear()
         {
-            _allPokemon.Clear();
+            allPokemon.Clear();
         }
 
         public PokemonData GetPokemon(string pokemonName)
         {
-            return _allPokemon.FirstOrDefault(pokemonData => pokemonData.name == pokemonName);
+            return allPokemon.FirstOrDefault(pokemonData => pokemonData.name == pokemonName);
         }
         
         public PokemonData GetPokemon(int pokemonNumber)
         {
-            return _allPokemon.FirstOrDefault(pokemonData => pokemonData.id == pokemonNumber);
+            return allPokemon.FirstOrDefault(pokemonData => pokemonData.id == pokemonNumber);
+        }
+
+        public PokemonData GetRandomPokemon()
+        {
+            return GetPokemon(Random.Range(1, allPokemon.Count));
+        }
+        
+        public string GetRandomPokemonName()
+        {
+            return GetPokemon(Random.Range(1, allPokemon.Count)).pokemonName;
         }
     }
 }

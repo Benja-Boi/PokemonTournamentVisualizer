@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0febfc2ef63fd604ea08b87192779668, type: 3}
-  m_Name: PokemonDatabase
+  m_Name: PokemonDatabase_10
   m_EditorClassIdentifier: 
-  _allPokemon:
+  allPokemon:
   - {fileID: 11400000, guid: 9a8802d82647356458337f270cd1170c, type: 2}
   - {fileID: 11400000, guid: 7f41b7c4ff30a7a439196d6ff3c1bfff, type: 2}
   - {fileID: 11400000, guid: 91d061c61204ab3409be3d3190fee126, type: 2}
@@ -22,3 +22,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f95002b39f439a04486b852258d0e569, type: 2}
   - {fileID: 11400000, guid: cebbe5aa98aa6944b861fd93950946ed, type: 2}
   - {fileID: 11400000, guid: d66f93e9782d61e46bb1ed340cb237dc, type: 2}
+  - {fileID: 11400000, guid: c04e9ceb92912af45ba369cf619ec2ec, type: 2}

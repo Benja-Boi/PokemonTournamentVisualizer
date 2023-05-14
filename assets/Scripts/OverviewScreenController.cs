@@ -1,7 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using DataTypes;
+using Unity.Mathematics;
 using UnityEngine.UI;
 
 public class OverviewScreenController : MonoBehaviour
@@ -11,11 +12,20 @@ public class OverviewScreenController : MonoBehaviour
     public GameObject matchUIElementPrefab;
     public Transform initialRoundTransform;
 
-    public Vector3 roundHorizontalOffset = new Vector3(5f, 0, 0);
-    public Vector3 matchVerticalOffset = new Vector3(0, 5f, 0);
-    
+    public Vector3 roundHorizontalOffset;
+    public Vector3 matchVerticalOffset;
+
+    private int _matchCount;
     private Tournament _tournament;
     private Dictionary<int, GameObject> _roundUIElements;
+    private Dictionary<int, List<MatchUIElement>> _matches;
+    private Dictionary<int, MatchUIElement> _matchByIdMap;
+
+    public void Awake()
+    {
+        _matches = new Dictionary<int, List<MatchUIElement>>();
+        _matchByIdMap = new Dictionary<int, MatchUIElement>();
+    }
 
     private void Start()
     {
@@ -34,12 +44,45 @@ public class OverviewScreenController : MonoBehaviour
         _roundUIElements.Clear();
 
         // Generate UI elements for each match in the tournament
-        TraverseAndGenerateUI(_tournament.FinalMatch);
+        TraverseAndGenerateUI(_tournament.FinalMatch, null);
+        SpaceMatches();
     }
 
-    private void TraverseAndGenerateUI(Match match)
+    private void SpaceMatches()
     {
-        if (match == null) return;
+        int numRounds = _matches.Aggregate((l, r) => l.Key > r.Key ? l : r).Key;
+        SpaceFirstRoundMatches(numRounds);
+
+        for (int round = 2; round <= numRounds; round++)
+        {
+            var roundMatches = _matches[round];
+            
+            if (round == 1) continue;
+            float roundXVal = _roundUIElements[round].transform.position.x;
+
+            foreach (var match in roundMatches)
+            {
+                float matchYVal = (match.previousMatch1.transform.position.y + match.previousMatch2.transform.position.y) / 2;
+                match.transform.position = new Vector3(roundXVal, matchYVal, 0);
+            }
+        }
+    }
+
+    private void SpaceFirstRoundMatches(int numRounds)
+    {
+        int matchesInFirstRound = (int) math.pow(2, numRounds - 1);
+        Vector3 topPosition = _roundUIElements[1].transform.position + matchesInFirstRound * matchVerticalOffset / 2;
+        var firstRoundMatches = _matches[1];
+        for (int j = 0; j < matchesInFirstRound; j++)
+        {
+            Vector3 newPosition = topPosition - j * matchVerticalOffset;
+            firstRoundMatches[j].transform.position = newPosition;
+        }
+    }
+
+    private MatchUIElement TraverseAndGenerateUI(Match match, MatchUIElement nextMatchUIElement)
+    {
+        if (match == null) return null;
 
         // Instantiate a new RoundUIElement for the current round, if needed
         GameObject roundUIElement = GetOrCreateRoundUIElement(match.Round);
@@ -47,7 +90,18 @@ public class OverviewScreenController : MonoBehaviour
         // Instantiate a new MatchUIElement and set up its properties
         GameObject matchUIObject = Instantiate(matchUIElementPrefab, roundUIElement.transform);
         MatchUIElement matchUIElement = matchUIObject.GetComponent<MatchUIElement>();
+        matchUIElement.nextMatch = nextMatchUIElement;
         matchUIElement.SetMatch(match);
+        _matchByIdMap.Add(match.ID, matchUIElement);
+        if (_matches.ContainsKey(match.Round))
+        {
+            _matches[match.Round].Add(matchUIElement);
+        }
+        else
+        {
+            _matches.Add(match.Round, new List<MatchUIElement>());
+            _matches[match.Round].Add(matchUIElement);
+        }
 
         // Set up the UI Button click listener
         Button matchButton = matchUIObject.GetComponent<Button>();
@@ -57,8 +111,10 @@ public class OverviewScreenController : MonoBehaviour
         UpdateMatchUI(matchUIElement, match);
 
         // Traverse child nodes
-        TraverseAndGenerateUI(match.PreviousMatch1);
-        TraverseAndGenerateUI(match.PreviousMatch2);
+        matchUIElement.previousMatch1 = TraverseAndGenerateUI(match.PreviousMatch1, matchUIElement);
+        matchUIElement.previousMatch2 = TraverseAndGenerateUI(match.PreviousMatch2, matchUIElement);
+
+        return matchUIElement;
     }
 
     private GameObject GetOrCreateRoundUIElement(int roundNumber)
@@ -73,11 +129,12 @@ public class OverviewScreenController : MonoBehaviour
         return _roundUIElements[roundNumber];
     }
 
-    public void OnMatchButtonClick(int matchId)
+    private void OnMatchButtonClick(int matchId)
     {
+        Debug.Log("Match Clicked: " + matchId);
         Match clickedMatch = _tournament.FindMatchById(matchId);
 
-        if (clickedMatch != null && clickedMatch.IsAvailable)
+        if (clickedMatch is { IsAvailable: true })
         {
             // Simulate the match and update the winner
             clickedMatch.SimulateMatch();
@@ -90,7 +147,10 @@ public class OverviewScreenController : MonoBehaviour
 
     private void UpdateMatchUIForMatchId(int matchId)
     {
-        throw new System.NotImplementedException();
+        Match match = _tournament.FindMatchById(matchId);
+        MatchUIElement matchUI = _matchByIdMap[matchId];
+        matchUI.pokemon1.SetPokemon(match.Pokemon1);
+        matchUI.pokemon2.SetPokemon(match.Pokemon2);
     }
 
     private void UpdateMatchUI(MatchUIElement matchUIElement, Match match)

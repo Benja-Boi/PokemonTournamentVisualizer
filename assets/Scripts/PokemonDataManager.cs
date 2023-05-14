@@ -31,4 +31,9 @@ public class PokemonDataManager : MonoBehaviour
     {
         return db.GetPokemon(pokemonNumber);
     }
+    
+    public string GetRandomPokemonName()
+    {
+        return db.GetRandomPokemonName();
+    }
 }

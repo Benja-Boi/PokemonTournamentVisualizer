@@ -412,7 +412,7 @@ PrefabInstance:
     - target: {fileID: 6733025865341946616, guid: 9ed5938ef39974c4eb71cf0d789208d6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 027b407d87ce27a4790c2cfc960baa85, type: 3}
+      objectReference: {fileID: 21300000, guid: 26a9bf9279320e34781a60d3d4cbd5b9, type: 3}
     - target: {fileID: 6733025865341946622, guid: 9ed5938ef39974c4eb71cf0d789208d6, type: 3}
       propertyPath: m_Name
       value: Player 2 Sprite
@@ -654,7 +654,7 @@ PrefabInstance:
     - target: {fileID: 6733025865341946616, guid: 9ed5938ef39974c4eb71cf0d789208d6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1b8e8a96c0fabfe4288befff9f79f549, type: 3}
+      objectReference: {fileID: 21300000, guid: 26a9bf9279320e34781a60d3d4cbd5b9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ed5938ef39974c4eb71cf0d789208d6, type: 3}
 --- !u!114 &2309078853882700424 stripped
