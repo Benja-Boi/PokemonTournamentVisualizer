@@ -14,6 +14,8 @@ public class OverviewScreenController : MonoBehaviour
 
     public Vector3 roundHorizontalOffset;
     public Vector3 matchVerticalOffset;
+    public float matchSizeModifier;
+    public float roundSpaceModifier;
 
     private int _matchCount;
     private Tournament _tournament;
@@ -89,6 +91,7 @@ public class OverviewScreenController : MonoBehaviour
 
         // Instantiate a new MatchUIElement and set up its properties
         GameObject matchUIObject = Instantiate(matchUIElementPrefab, roundUIElement.transform);
+        matchUIObject.transform.localScale *= (1 + (match.Round - 1) * matchSizeModifier);
         MatchUIElement matchUIElement = matchUIObject.GetComponent<MatchUIElement>();
         matchUIElement.nextMatch = nextMatchUIElement;
         matchUIElement.SetMatch(match);
@@ -121,7 +124,7 @@ public class OverviewScreenController : MonoBehaviour
     {
         if (_roundUIElements.ContainsKey(roundNumber)) return _roundUIElements[roundNumber];
 
-        Vector3 newRoundTransform = initialRoundTransform.position + (roundNumber - 1) * roundHorizontalOffset;
+        Vector3 newRoundTransform = initialRoundTransform.position + math.pow((roundNumber - 1), roundSpaceModifier) * roundHorizontalOffset;
         GameObject roundUIElement = Instantiate(roundUIElementPrefab, newRoundTransform, tournamentContainer.rotation, tournamentContainer);
         _roundUIElements[roundNumber] = roundUIElement;
         roundUIElement.name = "Round_" + roundNumber;

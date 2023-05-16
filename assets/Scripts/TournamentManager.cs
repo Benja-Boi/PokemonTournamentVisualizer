@@ -14,6 +14,7 @@ public class TournamentManager : MonoBehaviour
     void Start()
     {
         pokemonDataManager = FindObjectOfType<PokemonDataManager>();
+        overviewScreenController = FindObjectOfType<OverviewScreenController>();
         
         List<(string playerName, string pokemonName)> participants;
         if (populateRandomly)
