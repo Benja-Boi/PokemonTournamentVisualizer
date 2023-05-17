@@ -8,6 +8,7 @@ namespace ScriptableObjects.DataTypes
     {
         public string pokemonName;
         public Sprite sprite;
+        public Sprite backSprite;
         public int id;
     }
 }

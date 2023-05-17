@@ -36,6 +36,15 @@ namespace ScriptableObjects.DataTypes
         
         public PokemonData GetPokemon(int pokemonNumber)
         {
+            foreach (var pd in allPokemon)
+            {
+                var id = pd.id;
+                if (id == pokemonNumber)
+                {
+                    return pd;
+                }
+            }
+
             return allPokemon.FirstOrDefault(pokemonData => pokemonData.id == pokemonNumber);
         }
 

@@ -10,12 +10,15 @@ public class TournamentManager : MonoBehaviour
     public OverviewScreenController overviewScreenController;
     public bool populateRandomly;
     public int numberOfRounds = 3;
-    
-    void Start()
+
+    private void Awake()
     {
         pokemonDataManager = FindObjectOfType<PokemonDataManager>();
         overviewScreenController = FindObjectOfType<OverviewScreenController>();
-        
+    }
+
+    void Start()
+    {
         List<(string playerName, string pokemonName)> participants;
         if (populateRandomly)
         {
@@ -26,6 +29,10 @@ public class TournamentManager : MonoBehaviour
             participants = TournamentLoader.LoadTournament();
         }
         _tournament = new Tournament(participants);
+    }
+
+    public void StartTournament()
+    {
         overviewScreenController.GenerateTournamentUI(_tournament);
     }
 

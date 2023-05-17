@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokemonName: Blastoise
   sprite: {fileID: 21300000, guid: 1b8e8a96c0fabfe4288befff9f79f549, type: 3}
+  backSprite: {fileID: 21300000, guid: 3d3ee2a3e7bbffa4b9a7618fdfc99006, type: 3}
   id: 9

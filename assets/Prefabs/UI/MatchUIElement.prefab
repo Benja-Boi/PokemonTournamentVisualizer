@@ -164,8 +164,8 @@ RectTransform:
   m_GameObject: {fileID: 3225137884337993583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3225137882558249746}
   - {fileID: 8192468323603873926}
@@ -277,6 +277,9 @@ MonoBehaviour:
   pokemon1: {fileID: 2309078853882700424}
   pokemon2: {fileID: 9042099550102083868}
   winner: {fileID: 3526385182996742289}
+  previousMatch1: {fileID: 0}
+  previousMatch2: {fileID: 0}
+  nextMatch: {fileID: 0}
 --- !u!1 &3567480221536163672
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokemonName: Bulbasaur
   sprite: {fileID: 21300000, guid: 4c854ee309cd699468eb9fcf106c02bd, type: 3}
+  backSprite: {fileID: 21300000, guid: e3ae28c84e328e9409cbe45c3780f0a4, type: 3}
   id: 1

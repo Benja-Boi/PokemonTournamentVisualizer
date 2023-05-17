@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokemonName: Ivysaur
   sprite: {fileID: 21300000, guid: ce9f5330b0d19824aab0233ee04cf2f2, type: 3}
+  backSprite: {fileID: 21300000, guid: bc830b7b28f92a342ada1c5cab7ddfb5, type: 3}
   id: 2

@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokemonName: Charmeleon
   sprite: {fileID: 21300000, guid: d3716be077f62a1498e2996b99559efc, type: 3}
+  backSprite: {fileID: 21300000, guid: 3f14e2eaa7a60fd47bae91be5d7b1574, type: 3}
   id: 5

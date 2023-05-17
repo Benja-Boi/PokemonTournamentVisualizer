@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokemonName: Squirtle
   sprite: {fileID: 21300000, guid: c53a76ebd88d48341ad272f644dde085, type: 3}
+  backSprite: {fileID: 21300000, guid: e7d26a00539d46a4193b59888a4e2c50, type: 3}
   id: 7

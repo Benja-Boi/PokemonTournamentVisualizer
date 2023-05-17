@@ -30,8 +30,6 @@ public static class PokemonDataGenerator
 
     private static void GeneratePokemonData(string csvPath)
     {
-        // The database object to hold all the instances for easy access
-        //pokemonDatabase.Clear();
 
         // Load the default sprite
         Sprite defaultSprite = AssetDatabase.LoadAssetAtPath<Sprite>(DefaultSpritePath);
@@ -47,12 +45,14 @@ public static class PokemonDataGenerator
                 string pokemonName = values[1];
                 
                 // Load the sprite, or use the default sprite if loading fails
-                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{SpritesFolderPath}/{pokedexNumber}.png") ?? defaultSprite;
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{SpritesFolderPath}/back/{pokedexNumber}.png") ?? defaultSprite;
+                Sprite backSprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{SpritesFolderPath}/back/{pokedexNumber}.png") ?? defaultSprite;
 
                 // Create a new PokemonData ScriptableObject
                 PokemonData pokemonData = ScriptableObject.CreateInstance<PokemonData>();
                 pokemonData.pokemonName = pokemonName;
                 pokemonData.sprite = sprite;
+                pokemonData.backSprite = backSprite;
                 pokemonData.id = pokedexNumber;
 
                 // Save the PokemonData instance as an asset in the project
@@ -99,13 +99,15 @@ public static class PokemonDataGenerator
                 
                 // Load the sprite, or use the default sprite if loading fails
                 Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{SpritesFolderPath}/{pokedexNumber}.png") ?? defaultSprite;
+                Sprite backSprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{SpritesFolderPath}/back/{pokedexNumber}.png") ?? defaultSprite;
 
                 // Create a new PokemonData ScriptableObject
                 PokemonData pokemonData = ScriptableObject.CreateInstance<PokemonData>();
                 pokemonData.pokemonName = pokemonName ?? "";
                 pokemonData.sprite = sprite;
+                pokemonData.backSprite = backSprite;
                 pokemonData.id = pokedexNumber;
-                
+
                 // Save the PokemonData instance as an asset in the project
                 AssetDatabase.CreateAsset(pokemonData, $"{OutputFolderPath}/{pokemonName}.asset");
 

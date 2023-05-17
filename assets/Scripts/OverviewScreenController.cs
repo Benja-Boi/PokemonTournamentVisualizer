@@ -27,10 +27,6 @@ public class OverviewScreenController : MonoBehaviour
     {
         _matches = new Dictionary<int, List<MatchUIElement>>();
         _matchByIdMap = new Dictionary<int, MatchUIElement>();
-    }
-
-    private void Start()
-    {
         _roundUIElements = new Dictionary<int, GameObject>();
     }
 
