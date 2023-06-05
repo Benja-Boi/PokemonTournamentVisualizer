@@ -13,8 +13,15 @@ public class TournamentManager : MonoBehaviour
 
     private void Awake()
     {
-        pokemonDataManager = FindObjectOfType<PokemonDataManager>();
-        overviewScreenController = FindObjectOfType<OverviewScreenController>();
+        if (pokemonDataManager == null)
+        {
+            pokemonDataManager = FindObjectOfType<PokemonDataManager>();
+        }
+
+        if (overviewScreenController)
+        {
+            overviewScreenController = FindObjectOfType<OverviewScreenController>();
+        }
     }
 
     void Start()

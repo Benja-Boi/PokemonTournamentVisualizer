@@ -230,7 +230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &666888618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,10 +432,10 @@ MonoBehaviour:
   roundUIElementPrefab: {fileID: 4647948737280888594, guid: cdec7d3e96c3239499331cc55cea4c22, type: 3}
   matchUIElementPrefab: {fileID: 3225137884337993583, guid: 8c957ecdf4e832546bc869663b6b606e, type: 3}
   initialRoundTransform: {fileID: 1555990385}
-  roundHorizontalOffset: {x: 1.5, y: 0, z: 0}
+  roundHorizontalOffset: {x: 2, y: 0, z: 0}
   matchVerticalOffset: {x: 0, y: 0.55, z: 0}
-  matchSizeModifier: 0.45
-  roundSpaceModifier: 1.25
+  matchSizeModifier: 0.75
+  roundSpaceModifier: 1.5
 --- !u!1 &847005920
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 1222127513}
   - component: {fileID: 1222127512}
   - component: {fileID: 1222127515}
+  - component: {fileID: 1222127516}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -690,7 +691,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f91d742f3be083418c26878ab8255c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionMaterial: {fileID: 2100000, guid: 7624d611bd330e44b80ef65275598a16, type: 2}
+  transitionMaterial: {fileID: 2100000, guid: 7624d611bd330e44b80ef65275598a16, type: 2}
+--- !u!114 &1222127516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222127511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd566e6bc96e7c446a904cc89f87ee9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  zoomSpeed: 3.5
 --- !u!1 &1245547501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,10 +1218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2692403fc77807e488a8c5c1e94d91a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pokemonDataManager: {fileID: 0}
-  overviewScreenController: {fileID: 0}
+  pokemonDataManager: {fileID: 1485333361}
+  overviewScreenController: {fileID: 703099614}
   populateRandomly: 1
-  numberOfRounds: 5
+  numberOfRounds: 6
 --- !u!4 &1911213677
 Transform:
   m_ObjectHideFlags: 0
