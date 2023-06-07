@@ -1,7 +1,7 @@
 ﻿using System;
-using ScriptableObjects.DataTypes;
 using UnityEngine;
 using System.IO;
+using DataTypes;
 
 public class PokemonDataManager : MonoBehaviour
 {

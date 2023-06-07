@@ -1,6 +1,5 @@
 using System.IO;
-using ScriptableObjects;
-using ScriptableObjects.DataTypes;
+using DataTypes;
 using UnityEditor;
 using UnityEngine;
 

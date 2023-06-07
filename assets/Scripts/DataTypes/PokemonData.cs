@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ScriptableObjects.DataTypes
+namespace DataTypes
 {
     [CreateAssetMenu(fileName = "PokemonData", menuName = "Pokemon/PokemonData", order = 1)]
 

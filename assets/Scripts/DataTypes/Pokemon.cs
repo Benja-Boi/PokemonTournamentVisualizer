@@ -1,5 +1,4 @@
-﻿using ScriptableObjects.DataTypes;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DataTypes
 {
