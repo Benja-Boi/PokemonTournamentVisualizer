@@ -1,16 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Game_Events;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TransitionManager : MonoBehaviour
 {
     public Material transitionMaterial;
     public float transitionDuration;
+    public GameEvent[] transitionBlackScreenEvents;
     private float _transitionProgress = 0;
     private bool _isActiveTransition = false;
     private AnimationDirection _transitionDirection = AnimationDirection.Forward;
+    private static readonly int Cutoff = Shader.PropertyToID("_Cutoff");
+    private int _currEvent = 0;
 
     private void Start()
     {
@@ -21,24 +21,28 @@ public class TransitionManager : MonoBehaviour
     {
         if (_isActiveTransition)
         {
-            _transitionProgress += ((int)_transitionDirection) * Time.fixedTime / transitionDuration;
+            _transitionProgress += ((int)_transitionDirection) * (Time.deltaTime / transitionDuration);
             SetMaterialTransitionValue();
             if (_transitionProgress is < 1 and > 0) return;
             if (_transitionDirection == AnimationDirection.Forward)
             {
+                transitionBlackScreenEvents[_currEvent].Raise();
                 _transitionDirection = AnimationDirection.Backwards;
+                _transitionProgress = 1;
+                _currEvent = (_currEvent + 1) % transitionBlackScreenEvents.Length;
             }
             else
             {
                 _transitionDirection = AnimationDirection.Forward;
                 _isActiveTransition = false;
+                _transitionProgress = 0;
             }
         }
     }
 
     private void SetMaterialTransitionValue()
     {
-        transitionMaterial.SetFloat("Cutoff", _transitionProgress);
+        transitionMaterial.SetFloat(Cutoff, _transitionProgress);
     }
 
     public void PlayTransition()
@@ -48,9 +52,9 @@ public class TransitionManager : MonoBehaviour
         _transitionProgress = 0;
     }
 
-    enum AnimationDirection
+    public enum AnimationDirection
     {
-        Forward = -1,
-        Backwards = 1
+        Forward = 1,
+        Backwards = -1
     }
 }

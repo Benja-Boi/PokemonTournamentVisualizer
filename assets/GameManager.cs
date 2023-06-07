@@ -1,14 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject startScreen;
-    public GameObject overViewScreen;
-    public GameObject battleScreen;
+    public CanvasGroup startScreen;
+    public CanvasGroup overViewScreen;
+    public CanvasGroup battleScreen;
     private TournamentManager _tournamentManager;
 
     private void Awake()
@@ -18,17 +15,43 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        startScreen.SetActive(true);
-        overViewScreen.SetActive(false);
-        battleScreen.SetActive(false);
+        startScreen.alpha = 1;
+        overViewScreen.alpha = 0;
+        battleScreen.alpha = 0;
     }
 
     public void StartTournament()
     {
-        startScreen.SetActive(false);
-        overViewScreen.SetActive(true);
-        battleScreen.SetActive(false);
+        startScreen.alpha = 0;
+        overViewScreen.alpha = 1;
+        battleScreen.alpha = 0;
         
         _tournamentManager.StartTournament();
+    }
+
+    public void ChangeScreens()
+    {
+        if (Math.Abs(battleScreen.alpha - 1) < .01)
+        {
+            ShowOverviewScreen();
+        }
+        else
+        {
+            ShowBattleScreen();
+        }
+    }
+    
+    public void ShowBattleScreen()
+    {
+        startScreen.alpha = 0;
+        overViewScreen.alpha = 0;
+        battleScreen.alpha = 1;
+    }
+    
+    public void ShowOverviewScreen()
+    {
+        startScreen.alpha = 0;
+        overViewScreen.alpha = 1;
+        battleScreen.alpha = 0;
     }
 }

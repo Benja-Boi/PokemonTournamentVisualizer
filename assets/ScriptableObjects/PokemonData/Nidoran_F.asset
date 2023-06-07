@@ -9,6 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a127e5818eaa64795ab2f327dd4bba75, type: 3}
-  m_Name: TransitionToOverview
+  m_Script: {fileID: 11500000, guid: 2a192a9798db426e8238afb476ad49ac, type: 3}
+  m_Name: Nidoran_F
   m_EditorClassIdentifier: 
+  pokemonName: Nidoran_F
+  sprite: {fileID: 21300000, guid: 31b721d8aa64c0741a154a4a9449ed76, type: 3}
+  backSprite: {fileID: 21300000, guid: 187c830753848234f944e9753472aaec, type: 3}
+  id: 29

@@ -12,10 +12,5 @@ namespace BattleTransitions
             if (transitionMaterial != null)
                 Graphics.Blit(src, dst, transitionMaterial);
         }
-
-        public void StartTransition(float duration, bool isBoomerang)
-        {
-            
-        }
     }
 }

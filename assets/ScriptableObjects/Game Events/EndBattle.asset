@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a192a9798db426e8238afb476ad49ac, type: 3}
-  m_Name: Nidoran
+  m_Script: {fileID: 11500000, guid: a127e5818eaa64795ab2f327dd4bba75, type: 3}
+  m_Name: EndBattle
   m_EditorClassIdentifier: 
-  pokemonName: Nidoran
-  sprite: {fileID: 21300000, guid: a63db8501512cc540a23fae6a16931a7, type: 3}
-  backSprite: {fileID: 21300000, guid: f5dd6747f1dc0ae4e8c6c4a568a8e8b5, type: 3}
-  id: 32

@@ -17,6 +17,7 @@ public class OverviewScreenController : MonoBehaviour
     public float matchSizeModifier;
     public float roundSpaceModifier;
 
+    public int _activeMatchId;
     private int _matchCount;
     private Tournament _tournament;
     private Dictionary<int, GameObject> _roundUIElements;
@@ -135,21 +136,42 @@ public class OverviewScreenController : MonoBehaviour
 
         if (clickedMatch is { IsAvailable: true })
         {
+            _activeMatchId = matchId;
+            
             // Simulate the match and update the winner
             clickedMatch.SimulateMatch();
-
-            // Update the UI for this match and the next match, if available
-            UpdateMatchUIForMatchId(matchId);
-            UpdateMatchUIForMatchId(clickedMatch.NextMatchId());
         }
+    }
+
+    public void OnMatchComplete()
+    {
+        
+        Debug.Log("Match " + _activeMatchId + " is complete.");
+        Match clickedMatch = _tournament.FindMatchById(_activeMatchId);
+        
+        // Update the UI for this match and the next match, if available
+        UpdateMatchUIForMatchId(_activeMatchId);
+        UpdateMatchUIForMatchId(clickedMatch.NextMatchId());
     }
 
     private void UpdateMatchUIForMatchId(int matchId)
     {
+        Debug.Log("Updating UI for match " + _activeMatchId + ".");
+        if (matchId == -1)
+        {
+            DeclareWinner();
+        }
+        
         Match match = _tournament.FindMatchById(matchId);
         MatchUIElement matchUI = _matchByIdMap[matchId];
         matchUI.pokemon1.SetPokemon(match.Pokemon1);
         matchUI.pokemon2.SetPokemon(match.Pokemon2);
+    }
+
+    private void DeclareWinner()
+    {
+        Debug.Log("***Winner is***");
+        Debug.Log(_tournament.FindMatchById(_activeMatchId).Winner.Name);
     }
 
     private void UpdateMatchUI(MatchUIElement matchUIElement, Match match)
