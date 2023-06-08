@@ -17,6 +17,18 @@ namespace Game_Events
             for (int i = _eventListeners.Count - 1; i >= 0; i--)
                 _eventListeners[i].OnEventRaised(this);
         }
+        
+        public void Raise(int value)
+        {
+            for (int i = _eventListeners.Count - 1; i >= 0; i--)
+                _eventListeners[i].OnEventRaised(this, value);
+        }
+        
+        public void Raise(float value)
+        {
+            for (int i = _eventListeners.Count - 1; i >= 0; i--)
+                _eventListeners[i].OnEventRaised(this, value);
+        }
 
         public void RegisterListener(IGameEventListener listener)
         {

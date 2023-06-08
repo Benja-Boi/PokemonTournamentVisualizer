@@ -9,11 +9,11 @@ namespace Game_Events
     {
         [Tooltip("ToDo.")]
         public List<InteractionMap> interactionMaps;
-        private Dictionary<GameEvent, InteractionMap> _mapDict;
+        private Dictionary<IGameEvent, InteractionMap> _mapDict;
 
         private void Awake()
         {
-            _mapDict = new Dictionary<GameEvent, InteractionMap>();
+            _mapDict = new Dictionary<IGameEvent, InteractionMap>();
         }
 
 
@@ -35,8 +35,20 @@ namespace Game_Events
             }
         }
 
-        public void OnEventRaised(GameEvent gameEvent)
+        public void OnEventRaised(IGameEvent gameEvent)
         {
+            _mapDict[gameEvent].responses.Invoke();
+        }
+        
+        public void OnEventRaised(IGameEvent gameEvent, int value)
+        {
+            // adapt to int!
+            _mapDict[gameEvent].responses.Invoke();
+        }
+        
+        public void OnEventRaised(IGameEvent gameEvent, float value)
+        {
+            // adapt to float!
             _mapDict[gameEvent].responses.Invoke();
         }
     }

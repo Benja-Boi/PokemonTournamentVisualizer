@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using DataTypes;
+using Game_Events;
 using Unity.Mathematics;
 using UnityEngine.UI;
 
@@ -11,13 +12,14 @@ public class OverviewScreenController : MonoBehaviour
     public GameObject roundUIElementPrefab;
     public GameObject matchUIElementPrefab;
     public Transform initialRoundTransform;
-
+    public GameEvent matchStarted;
+    
     public Vector3 roundHorizontalOffset;
     public Vector3 matchVerticalOffset;
     public float matchSizeModifier;
     public float roundSpaceModifier;
 
-    public int _activeMatchId;
+    private int _activeMatchId;
     private int _matchCount;
     private Tournament _tournament;
     private Dictionary<int, GameObject> _roundUIElements;
@@ -137,9 +139,9 @@ public class OverviewScreenController : MonoBehaviour
         if (clickedMatch is { IsAvailable: true })
         {
             _activeMatchId = matchId;
-            
+            matchStarted.Raise(matchId);
             // Simulate the match and update the winner
-            clickedMatch.SimulateMatch();
+            // clickedMatch.SimulateMatch();
         }
     }
 

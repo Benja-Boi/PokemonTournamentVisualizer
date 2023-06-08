@@ -1,9 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using Game_Events;
-using UnityEngine;
-
-public interface IGameEventListener
+namespace Game_Events
 {
-    void OnEventRaised(GameEvent gameEvent);
+    public interface IGameEventListener
+    {
+        void OnEventRaised(IGameEvent gameEvent);
+        
+        void OnEventRaised(IGameEvent gameEvent, int value);
+                
+        void OnEventRaised(IGameEvent gameEvent, float value);
+    }
 }

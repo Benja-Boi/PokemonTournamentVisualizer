@@ -55,4 +55,9 @@ public class TournamentManager : MonoBehaviour
 
         return participants;
     }
+    
+    public Match FindMatchById(int matchId)
+    {
+        return _tournament.FindMatchById(matchId);
+    }
 }
