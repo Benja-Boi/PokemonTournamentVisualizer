@@ -263,6 +263,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1203574182945031819, guid: 1abb734c19af34480b299a5dc2477872, type: 3}
   m_PrefabInstance: {fileID: 1203574182889512654}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &508889264 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4489750780241397239, guid: 1abb734c19af34480b299a5dc2477872, type: 3}
+  m_PrefabInstance: {fileID: 1203574182889512654}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991439c525d34b38a106b4187d415b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &666888617
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,8 +404,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tournamentManager: {fileID: 1911213676}
-  battlePlayer1: {fileID: 0}
-  battlePlayer2: {fileID: 0}
+  battlePlayer1: {fileID: 508889264}
+  battlePlayer2: {fileID: 1553498697}
 --- !u!114 &666888624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,11 +418,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a617b8496e44b56a6b41403d4c4484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  event: {fileID: 0}
+  event: {fileID: 11400000, guid: df94ca96dda0d45a4bb73358ac499983, type: 2}
   responses:
     m_PersistentCalls:
       m_Calls: []
   intResponses:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 666888623}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: UpdateBattleUI
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  floatResponses:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 666888623}
@@ -426,9 +452,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  floatResponses:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &703099609
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,14 +590,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionMaps:
-  - gameEvent: {fileID: 11400000, guid: 50656daa3d2bf0847a67b8e164861d38, type: 2}
+  - gameEvent: {fileID: 11400000, guid: fa1bfe31509d248979b5847183e3ecdf, type: 2}
     responses:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 703099614}
           m_TargetAssemblyTypeName: OverviewScreenController, Assembly-CSharp
           m_MethodName: OnMatchComplete
-          m_Mode: 1
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: d387035e8e4d39943865d831bf0d1a04, type: 2}
+    responses:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 703099614}
+          m_TargetAssemblyTypeName: OverviewScreenController, Assembly-CSharp
+          m_MethodName: OnMatchComplete
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -718,6 +757,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 1203574183469435529, guid: 1abb734c19af34480b299a5dc2477872, type: 3}
+      propertyPath: gameEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: d387035e8e4d39943865d831bf0d1a04, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1abb734c19af34480b299a5dc2477872, type: 3}
 --- !u!224 &719445323 stripped
@@ -1158,6 +1201,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1553498697 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4489750780241397239, guid: 1abb734c19af34480b299a5dc2477872, type: 3}
+  m_PrefabInstance: {fileID: 719445322}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991439c525d34b38a106b4187d415b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1555990384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,7 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionMaterial: {fileID: 2100000, guid: 7624d611bd330e44b80ef65275598a16, type: 2}
-  transitionDuration: 1.75
+  transitionDuration: 1
   transitionBlackScreenEvents:
   - {fileID: 11400000, guid: 37311936faff06241b420120a4aaf7cd, type: 2}
   - {fileID: 11400000, guid: 50656daa3d2bf0847a67b8e164861d38, type: 2}
@@ -1362,6 +1416,22 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - gameEvent: {fileID: 11400000, guid: fa1bfe31509d248979b5847183e3ecdf, type: 2}
+    responses:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1637566544}
+          m_TargetAssemblyTypeName: TransitionManager, Assembly-CSharp
+          m_MethodName: PlayTransition
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: d387035e8e4d39943865d831bf0d1a04, type: 2}
     responses:
       m_PersistentCalls:
         m_Calls:

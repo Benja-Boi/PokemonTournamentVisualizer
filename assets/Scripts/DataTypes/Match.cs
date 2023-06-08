@@ -73,6 +73,24 @@ namespace DataTypes
             _isComplete = true;
         }
 
+        public void SetWinner(bool player1Won)
+        {
+            Pokemon winner = player1Won ? _pokemon1 : _pokemon2;
+            _winner = _pokemon1;
+            if (NextMatch._pokemon1 == null)
+            {
+                NextMatch._pokemon1 = winner;
+            }
+            else
+            {
+                NextMatch._pokemon2 = winner;
+                NextMatch._isAvailable = true;
+            }
+
+            _isAvailable = false;
+            _isComplete = true;
+        }
+
         public int NextMatchId()
         {
             if (NextMatch != null)

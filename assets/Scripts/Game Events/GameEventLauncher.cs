@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using Game_Events;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class GameEventLauncher : MonoBehaviour
+namespace Game_Events
 {
-    public GameEvent gameEvent;
-
-    public void LaunchEvent()
+    public class GameEventLauncher : MonoBehaviour
     {
-        gameEvent.Raise();
+        public GameEvent gameEvent;
+
+        public void LaunchEvent()
+        {
+            gameEvent.Raise();
+        }
     }
 }

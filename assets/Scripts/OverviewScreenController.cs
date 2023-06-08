@@ -94,6 +94,7 @@ public class OverviewScreenController : MonoBehaviour
         MatchUIElement matchUIElement = matchUIObject.GetComponent<MatchUIElement>();
         matchUIElement.nextMatch = nextMatchUIElement;
         matchUIElement.SetMatch(match);
+        matchUIElement.SetState(match.Round == 1 ? MatchState.Available : MatchState.Unavailable);
         _matchByIdMap.Add(match.ID, matchUIElement);
         if (_matches.ContainsKey(match.Round))
         {
@@ -140,17 +141,19 @@ public class OverviewScreenController : MonoBehaviour
         {
             _activeMatchId = matchId;
             matchStarted.Raise(matchId);
-            // Simulate the match and update the winner
-            // clickedMatch.SimulateMatch();
         }
     }
 
-    public void OnMatchComplete()
+    public void OnMatchComplete(bool isPlayer1Won)
     {
         
         Debug.Log("Match " + _activeMatchId + " is complete.");
         Match clickedMatch = _tournament.FindMatchById(_activeMatchId);
+        clickedMatch.SetWinner(isPlayer1Won);
         
+        MatchUIElement matchUI = _matchByIdMap[_activeMatchId];
+        matchUI.SetState(MatchState.Completed);
+
         // Update the UI for this match and the next match, if available
         UpdateMatchUIForMatchId(_activeMatchId);
         UpdateMatchUIForMatchId(clickedMatch.NextMatchId());

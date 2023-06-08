@@ -292,6 +292,7 @@ MonoBehaviour:
   previousMatch1: {fileID: 0}
   previousMatch2: {fileID: 0}
   nextMatch: {fileID: 0}
+  background: {fileID: 3225137884337993554}
 --- !u!1 &3567480221536163672
 GameObject:
   m_ObjectHideFlags: 0
