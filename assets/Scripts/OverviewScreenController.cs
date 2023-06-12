@@ -109,6 +109,7 @@ public class OverviewScreenController : MonoBehaviour
         // Set up the UI Button click listener
         Button matchButton = matchUIObject.GetComponent<Button>();
         matchButton.onClick.AddListener(() => OnMatchButtonClick(matchUIElement.Match.ID));
+        matchButton.interactable = true;
 
         // Update the match UI state based on the current match state
         UpdateMatchUI(matchUIElement, match);

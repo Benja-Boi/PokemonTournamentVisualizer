@@ -1,11 +1,13 @@
 ﻿using DataTypes;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MatchUIElement : MonoBehaviour
 {
-    private MatchState state;
+    public MatchState state;
     public Match Match;
+    public int id; 
     public PokemonUIElement pokemon1;
     public PokemonUIElement pokemon2;
     public PokemonUIElement winner;
@@ -17,6 +19,7 @@ public class MatchUIElement : MonoBehaviour
     public void SetMatch(Match match)
     {
         Match = match;
+        id = match.ID;
         pokemon1.SetPokemon(match.Pokemon1);
         pokemon2.SetPokemon(match.Pokemon2);
         winner.SetPokemon(match.Winner);

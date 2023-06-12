@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Game_Events;
 using UnityEngine;
 
@@ -6,12 +7,13 @@ public class TransitionManager : MonoBehaviour
     public Material transitionMaterial;
     public float transitionDuration;
     public GameEvent[] transitionBlackScreenEvents;
+    public List<Texture> transitionTextures;
     private float _transitionProgress = 0;
     private bool _isActiveTransition = false;
     private AnimationDirection _transitionDirection = AnimationDirection.Forward;
     private static readonly int Cutoff = Shader.PropertyToID("_Cutoff");
     private int _currEvent = 0;
-
+    
     private void Start()
     {
         SetMaterialTransitionValue();
@@ -47,9 +49,15 @@ public class TransitionManager : MonoBehaviour
 
     public void PlayTransition()
     {
+        transitionMaterial.SetTexture("_TransitionTex",GetRandomTransitionTexture());
         _isActiveTransition = true;
         _transitionDirection = AnimationDirection.Forward;
         _transitionProgress = 0;
+    }
+
+    private Texture GetRandomTransitionTexture()
+    {
+        return transitionTextures[Random.Range(0, transitionTextures.Count)];
     }
 
     public enum AnimationDirection
