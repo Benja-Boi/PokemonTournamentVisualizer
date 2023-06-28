@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a192a9798db426e8238afb476ad49ac, type: 3}
+  m_Name: Vespiquen
+  m_EditorClassIdentifier: 
+  pokemonName: Vespiquen
+  sprite: {fileID: 21300000, guid: f3d17564c7ce6cc46a068cade9259bb8, type: 3}
+  backSprite: {fileID: 21300000, guid: b482890bff6f5b54086e27bda204b634, type: 3}
+  id: 416

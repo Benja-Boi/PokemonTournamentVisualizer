@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a192a9798db426e8238afb476ad49ac, type: 3}
+  m_Name: Aron
+  m_EditorClassIdentifier: 
+  pokemonName: Aron
+  sprite: {fileID: 21300000, guid: 099238fe73d728e48adf49c96e5a717e, type: 3}
+  backSprite: {fileID: 21300000, guid: ebbd52db3ad0164408f568bb856d8e81, type: 3}
+  id: 304

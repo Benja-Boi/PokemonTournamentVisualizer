@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game_Events;
 using Mono.CompilerServices.SymbolWriter;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
     public CanvasGroup activeScreen;
     public CanvasGroup startScreen;
     public CanvasGroup overViewScreen;
+    public GameEvent startTournamentEvent;
     public CanvasGroup battleScreen;
     private TournamentManager _tournamentManager;
     private List<CanvasGroup> _screens;
@@ -17,7 +19,7 @@ public class GameManager : MonoBehaviour
         _tournamentManager = FindObjectOfType<TournamentManager>();
         _screens = new List<CanvasGroup>();
     }
-
+    
     private void Start()
     {
         _screens.Add(startScreen);
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
     {
         ActivateScreen(overViewScreen);
         _tournamentManager.StartTournament();
+        startTournamentEvent.Raise();
     }
 
     public void ChangeScreens()

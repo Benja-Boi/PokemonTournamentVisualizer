@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a192a9798db426e8238afb476ad49ac, type: 3}
+  m_Name: Rotom Frost Rotom
+  m_EditorClassIdentifier: 
+  pokemonName: Rotom Frost Rotom
+  sprite: {fileID: 21300000, guid: 74f12effe7488784ba544b2d8fa8b5e2, type: 3}
+  backSprite: {fileID: 21300000, guid: 20fa177518834b7448e9003f4b22211a, type: 3}
+  id: 479

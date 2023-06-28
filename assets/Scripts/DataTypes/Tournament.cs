@@ -8,10 +8,13 @@ namespace DataTypes
     {
         public Match FinalMatch { get; private set; }
 
+        public readonly int NumberOfRounds;
+
         private readonly Dictionary<int, Match> _matchByIdMap;
 
-        public Tournament(IList<(string playerName, string pokemonName)> playerPokemonPairs)
+        public Tournament(IList<(string playerName, string pokemonName)> playerPokemonPairs, int numberOfRounds)
         {
+            this.NumberOfRounds = numberOfRounds;
             _matchByIdMap = new Dictionary<int, Match>();
             InitTournament(playerPokemonPairs);
         }

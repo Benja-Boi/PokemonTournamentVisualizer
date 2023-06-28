@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using DataTypes;
 using Game_Events;
+using UIElements;
 using Unity.Mathematics;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class OverviewScreenController : MonoBehaviour
     public Transform tournamentContainer;
     public GameObject roundUIElementPrefab;
     public GameObject matchUIElementPrefab;
+    public GameObject tournamentWinnerUIElementPrefab;
     public Transform initialRoundTransform;
     public GameEvent matchStarted;
     
@@ -21,6 +23,7 @@ public class OverviewScreenController : MonoBehaviour
 
     private int _activeMatchId;
     private int _matchCount;
+    private WinnerPokemonUIElement _winnerPokemonUIElement;
     private Tournament _tournament;
     private Dictionary<int, GameObject> _roundUIElements;
     private Dictionary<int, List<MatchUIElement>> _matches;
@@ -46,7 +49,12 @@ public class OverviewScreenController : MonoBehaviour
 
         // Generate UI elements for each match in the tournament
         TraverseAndGenerateUI(_tournament.FinalMatch, null);
+        
+        // Space the matches out
         SpaceMatches();
+        
+        // Generate a UI element for the winner of the tournament
+        GenerateTournamentWinnerUI();
     }
 
     private void SpaceMatches()
@@ -64,7 +72,9 @@ public class OverviewScreenController : MonoBehaviour
             foreach (var match in roundMatches)
             {
                 float matchYVal = (match.previousMatch1.transform.position.y + match.previousMatch2.transform.position.y) / 2;
-                match.transform.position = new Vector3(roundXVal, matchYVal, 0);
+                match.transform.position = new Vector2(roundXVal, matchYVal);
+                // Adjust the z position of the match to be 0 (Disgusting hack)
+                match.transform.localPosition -= new Vector3(0, 0, match.transform.localPosition.z);
             }
         }
     }
@@ -96,9 +106,9 @@ public class OverviewScreenController : MonoBehaviour
         matchUIElement.SetMatch(match);
         matchUIElement.SetState(match.Round == 1 ? MatchState.Available : MatchState.Unavailable);
         _matchByIdMap.Add(match.ID, matchUIElement);
-        if (_matches.ContainsKey(match.Round))
+        if (_matches.TryGetValue(match.Round, out var match1))
         {
-            _matches[match.Round].Add(matchUIElement);
+            match1.Add(matchUIElement);
         }
         else
         {
@@ -121,9 +131,19 @@ public class OverviewScreenController : MonoBehaviour
         return matchUIElement;
     }
 
+    private void GenerateTournamentWinnerUI()
+    {
+        // Instantiate a new RoundUIElement for the current round, if needed
+        GameObject roundUIElement = GetOrCreateRoundUIElement(_tournament.NumberOfRounds + 1);
+        GameObject winnerUIObject = Instantiate(tournamentWinnerUIElementPrefab, roundUIElement.transform);
+        winnerUIObject.transform.localScale *= (1 + (_tournament.NumberOfRounds) * matchSizeModifier);
+        WinnerPokemonUIElement winnerUIElement = winnerUIObject.GetComponent<WinnerPokemonUIElement>();
+        _winnerPokemonUIElement = winnerUIElement;
+    }
+
     private GameObject GetOrCreateRoundUIElement(int roundNumber)
     {
-        if (_roundUIElements.ContainsKey(roundNumber)) return _roundUIElements[roundNumber];
+        if (_roundUIElements.TryGetValue(roundNumber, out var element)) return element;
 
         Vector3 newRoundTransform = initialRoundTransform.position + math.pow((roundNumber - 1), roundSpaceModifier) * roundHorizontalOffset;
         GameObject roundUIElement = Instantiate(roundUIElementPrefab, newRoundTransform, tournamentContainer.rotation, tournamentContainer);
@@ -147,37 +167,40 @@ public class OverviewScreenController : MonoBehaviour
 
     public void OnMatchComplete(bool isPlayer1Won)
     {
-        
-        Debug.Log("Match " + _activeMatchId + " is complete.");
+        Debug.Log("Match " + _activeMatchId + " is complete, player 1 won?: " + isPlayer1Won + ".");
         Match clickedMatch = _tournament.FindMatchById(_activeMatchId);
         clickedMatch.SetWinner(isPlayer1Won);
         
         MatchUIElement matchUI = _matchByIdMap[_activeMatchId];
         matchUI.SetState(MatchState.Completed);
+        matchUI.SetWinner(isPlayer1Won ? clickedMatch.Pokemon1 : clickedMatch.Pokemon2);
 
         // Update the UI for this match and the next match, if available
         UpdateMatchUIForMatchId(_activeMatchId);
-        UpdateMatchUIForMatchId(clickedMatch.NextMatchId());
+        
+        if (_activeMatchId == _tournament.FinalMatch.ID)
+        {
+            Debug.Log("Tournament is complete!");
+            _winnerPokemonUIElement.SetPokemon(clickedMatch.Winner);
+        }
+        else
+        {
+            UpdateMatchUIForMatchId(clickedMatch.NextMatchId());
+        }
     }
 
     private void UpdateMatchUIForMatchId(int matchId)
     {
-        Debug.Log("Updating UI for match " + _activeMatchId + ".");
-        if (matchId == -1)
-        {
-            DeclareWinner();
-        }
-        
+        Debug.Log("Updating UI for match " + matchId + ".");
         Match match = _tournament.FindMatchById(matchId);
         MatchUIElement matchUI = _matchByIdMap[matchId];
         matchUI.pokemon1.SetPokemon(match.Pokemon1);
         matchUI.pokemon2.SetPokemon(match.Pokemon2);
-    }
-
-    private void DeclareWinner()
-    {
-        Debug.Log("***Winner is***");
-        Debug.Log(_tournament.FindMatchById(_activeMatchId).Winner.Name);
+        if (matchUI.state == MatchState.Unavailable && match.Pokemon1 != null && match.Pokemon2 != null)
+        {
+            // If the match is unavailable, but now has both Pokemon, set it to available
+            matchUI.SetState(MatchState.Available);
+        }
     }
 
     private void UpdateMatchUI(MatchUIElement matchUIElement, Match match)
@@ -189,7 +212,6 @@ public class OverviewScreenController : MonoBehaviour
         else if (match.IsComplete)
         {
             matchUIElement.SetState(MatchState.Completed);
-            matchUIElement.SetWinner(match.Winner);
         }
         else
         {

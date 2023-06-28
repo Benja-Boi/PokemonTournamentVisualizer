@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a192a9798db426e8238afb476ad49ac, type: 3}
+  m_Name: Smoochum
+  m_EditorClassIdentifier: 
+  pokemonName: Smoochum
+  sprite: {fileID: 21300000, guid: c7a760265b100da4e9f9db55f87e9e00, type: 3}
+  backSprite: {fileID: 21300000, guid: f66f4df08f622564dbac0bd225451764, type: 3}
+  id: 238

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a192a9798db426e8238afb476ad49ac, type: 3}
+  m_Name: Wormadam Trash Cloak
+  m_EditorClassIdentifier: 
+  pokemonName: Wormadam Trash Cloak
+  sprite: {fileID: 21300000, guid: 0bd1d4ccb88e9204aabb0da7d7bbff06, type: 3}
+  backSprite: {fileID: 21300000, guid: 94e79d616abd6494ab28dad621f54e8a, type: 3}
+  id: 413

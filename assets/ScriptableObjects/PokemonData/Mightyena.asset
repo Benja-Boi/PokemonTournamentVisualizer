@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a192a9798db426e8238afb476ad49ac, type: 3}
+  m_Name: Mightyena
+  m_EditorClassIdentifier: 
+  pokemonName: Mightyena
+  sprite: {fileID: 21300000, guid: 541e8b730b6dbb746b921e2161fde93f, type: 3}
+  backSprite: {fileID: 21300000, guid: 7e95f11e0fb58ca419e4ed89c9826827, type: 3}
+  id: 262

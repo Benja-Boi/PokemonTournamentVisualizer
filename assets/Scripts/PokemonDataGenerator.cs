@@ -7,7 +7,7 @@ public static class PokemonDataGenerator
 {
     // Set the paths for the CSV file and the sprites folder
     private const string CsvFilePathDemo = "Assets/Resources/Pokedex_Map_mock.csv";
-    private const string CsvFilePathFull = "Assets/Resources/Pokedex_Map.csv";
+    private const string CsvFilePathFull = "Assets/Resources/Pokedex_Map_Full_649.csv";
     private const string SpritesFolderPath = "Assets/Sprites";
     private const string OutputFolderPath = "Assets/ScriptableObjects/PokemonData";
     private const string DefaultSpritePath = "Assets/0.png";

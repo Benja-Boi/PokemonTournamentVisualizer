@@ -10,7 +10,8 @@ public class TournamentManager : MonoBehaviour
     public OverviewScreenController overviewScreenController;
     public bool populateRandomly;
     public int numberOfRounds = 3;
-
+    public int playerCount;
+    
     private void Awake()
     {
         if (pokemonDataManager == null)
@@ -26,16 +27,9 @@ public class TournamentManager : MonoBehaviour
 
     void Start()
     {
-        List<(string playerName, string pokemonName)> participants;
-        if (populateRandomly)
-        {
-            participants = GenerateRandomParticipants((int) Math.Pow(2, numberOfRounds));
-        }
-        else
-        {
-            participants = TournamentLoader.LoadTournament();
-        }
-        _tournament = new Tournament(participants);
+        var participants = populateRandomly ? GenerateRandomParticipants((int)Math.Pow(2, numberOfRounds)) : TournamentLoader.LoadTournament();
+        playerCount = participants.Count;
+        _tournament = new Tournament(participants, numberOfRounds);
     }
 
     public void StartTournament()

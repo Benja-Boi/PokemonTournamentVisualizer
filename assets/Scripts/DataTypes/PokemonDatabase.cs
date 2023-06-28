@@ -12,7 +12,7 @@ namespace DataTypes
         private List<PokemonData> allPokemon;
 
         public List<PokemonData> AllPokemon => allPokemon;
-
+        private int maxPokemonIndex = 0;
 
         public PokemonDatabase()
         {
@@ -40,14 +40,25 @@ namespace DataTypes
             return allPokemon.FirstOrDefault(pokemonData => pokemonData.id == pokemonNumber);
         }
 
-        public PokemonData GetRandomPokemon()
+        private PokemonData GetRandomPokemon()
         {
-            return GetPokemon(Random.Range(1, allPokemon.Count));
+            return GetPokemon(Random.Range(1, GetMaxPokemonIndex()));
         }
         
         public string GetRandomPokemonName()
         {
             return GetRandomPokemon().pokemonName;
+        }
+        
+        private int GetMaxPokemonIndex()
+        {
+            if (maxPokemonIndex == 0)
+            {
+                // iterate over allPokemon and find the highest index
+                maxPokemonIndex = allPokemon.Select(pokemon => pokemon.id).Prepend(0).Max();
+            }
+
+            return maxPokemonIndex;
         }
     }
 }
