@@ -699,3 +699,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d4ed029ded7504de795f37bd2620e08f, type: 2}
   - {fileID: 11400000, guid: 0ede2922db6884491a8b212bc507a24e, type: 2}
   - {fileID: 11400000, guid: 292100fcd92164f399bd5d055c67c663, type: 2}
+  activeGenerations: 0101000000
+  generationRangesStart: 0100000098000000fc00000083010000ee010000
+  generationRangesEnd: 97000000fb00000082010000ed01000089020000
